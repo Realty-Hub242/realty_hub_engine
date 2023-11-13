@@ -23,8 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:3000/")
+@RequestMapping("private/api/auth")
 public class AuthController {
 
     @Autowired

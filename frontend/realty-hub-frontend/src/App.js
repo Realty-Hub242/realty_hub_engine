@@ -1,17 +1,14 @@
-import {BrowserRouter, Navigate, Route, Router, Routes} from "react-router-dom";
-import Congratulations from "./component/Congratulations";
 import LoginComponent from "./component/LoginForm";
-import {Suspense} from "react";
-function App() {
-  return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginComponent/>}/>
-          <Route path="home" element={<Congratulations/>}/>
-          <Route path="/redirect" element={<Navigate to ="/home"/>}/>
-        </Routes>
-      </BrowserRouter>
-  );
-}
+import HomePage from "./component/HomePage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-export default App;
+export default function App() {
+  return(
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginComponent />} />
+      </Routes>
+      </BrowserRouter>
+  )
+}

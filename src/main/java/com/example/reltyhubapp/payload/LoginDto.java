@@ -1,6 +1,5 @@
 package com.example.reltyhubapp.payload;
 
-
 import lombok.Data;
 
 @Data

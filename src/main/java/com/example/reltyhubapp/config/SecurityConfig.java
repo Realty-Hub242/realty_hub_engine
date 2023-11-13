@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -37,9 +38,8 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csfr -> csfr.disable()).authorizeHttpRequests((auth) -> auth.requestMatchers(HttpMethod.GET, "/api/**")
-                .permitAll().requestMatchers("/api/auth/**").permitAll().anyRequest().authenticated()
-        );
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll()
+                .requestMatchers("/private/**").authenticated());
         return http.build();
     }
 }

@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import HomePage from './HomePage';
 
-function LoginComponent() {
+const LoginComponent = () => {
     const [formData, setFormData] = useState({
         usernameOrEmail: '',
         password: '',
     });
 
+    let [loggedIn, setLoggedIn] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8090/api/auth/signin', formData, {
+            const response = await axios.post('http://localhost:8090/private/api/auth/signin', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-
             console.log('Успешно вошли в систему.');
             console.log('Ответ от сервера:', response.data);
+            setLoggedIn(true)
+            loggedIn = true;
+            
+            if (loggedIn) {
+                return <Navigate path=""/>
+            }
+
         } catch (error) {
             console.error('Ошибка при входе в систему:', error);
         }
@@ -51,7 +61,7 @@ function LoginComponent() {
                     />
                 </label>
                 <br />
-                <button type="submit">Войти</button>
+                <button onClick={handleSubmit}>Войти</button>
             </form>
         </div>
     );
