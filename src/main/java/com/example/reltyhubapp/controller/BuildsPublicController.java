@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping(value = "/public")
 @RequiredArgsConstructor
-public class HomePageController {
+public class BuildsPublicController {
 
     @Autowired
     private final UserRepository userRepository;
