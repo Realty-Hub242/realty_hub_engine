@@ -2,6 +2,9 @@ package com.example.reltyhubapp.service;
 
 import com.example.reltyhubapp.entity.User;
 import com.example.reltyhubapp.repository.UserRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,13 +18,10 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class UserDetail implements UserDetailsService {
-    private UserRepository userRepository;
-
-    public UserDetail(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         User user = userRepository.findByUserNameOrEmail(usernameOrEmail, usernameOrEmail)

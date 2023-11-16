@@ -18,6 +18,8 @@ public class Image {
     private Long size;
     private String contentType;
     private boolean isPreviewImage;
+
+    @Column(name = "bytes", columnDefinition = "longblob")
     @Lob
     private byte[] bytes;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)

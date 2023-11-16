@@ -17,25 +17,12 @@ import java.util.List;
 public class BuildsService {
     private final BuildsRepository buildsRepository;
 
-    public void saveBuilds(Builds builds, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
-        Image image1;
-        Image image2;
-        Image image3;
-        if (file1.getSize() != 0) {
-            image1 = toImageEntity(file1);
-            image1.setPreviewImage(true);
-            builds.addImageToBuilds(image1);
-
-        }
-        if (file2.getSize() != 0) {
-            image2 = toImageEntity(file2);
-            builds.addImageToBuilds(image2);
-
-        }
-        if (file3.getSize() != 0) {
-            image3 = toImageEntity(file3);
-            builds.addImageToBuilds(image3);
-
+    public void saveBuilds(Builds builds, MultipartFile file) throws IOException {
+        Image image;
+        if (file.getSize() != 0) {
+            image = toImageEntity(file);
+            image.setPreviewImage(true);
+            builds.addImageToBuilds(image);
         }
 
         log.info("Saving a new builds Builds. Title:{};", builds.getName());

@@ -29,6 +29,7 @@ public class Builds {
     private String typeOfDev;
     private String manager;
     private String contact;
+    private String Geo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
