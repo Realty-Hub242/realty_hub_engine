@@ -25,7 +25,7 @@ public class BuildsService {
             builds.addImageToBuilds(image);
         }
 
-        log.info("Saving a new builds Builds. Title:{};", builds.getName());
+        log.info("Saving a new builds Builds. Title:{};", builds.getName_build());
         Builds buildsFromDb = buildsRepository.save(builds);
         buildsRepository.save(builds);
         buildsFromDb.setPreviewImageId(buildsFromDb.getImageList().get(0).getId());

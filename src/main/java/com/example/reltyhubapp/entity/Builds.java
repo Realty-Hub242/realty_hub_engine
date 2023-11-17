@@ -17,20 +17,23 @@ import java.util.List;
 @AllArgsConstructor
 public class Builds {
     @Id
-    private int id;
-    private String TYPE_BUILD;
-    private String name;
+    private Long id;
+    private String type;
+    private String name_build;
     private String description;
     private Float price;
-    private Float SQUARE_FOOTAGE;
+    private Float square_footage;
+    private Integer count_of_bedrooms;
+    private Integer count_of_bathrooms;
+    private String city;
     private String view;
-    private Integer distance;
+    private Integer distance_to_beach;
     private Integer floor;
-    private String typeOfDev;
+    private Integer number_of_stores;
+    private String type_of_dev;
+    private String geo;
     private String manager;
     private String contact;
-    private String Geo;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
     private Long previewImageId;
