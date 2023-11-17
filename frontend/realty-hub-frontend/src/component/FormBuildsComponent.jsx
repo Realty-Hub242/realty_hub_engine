@@ -28,7 +28,13 @@ const FormBuildsComponent = () => {
     });
 
     const save = (builds) => {
+        console.log("Builds " + builds);
         return axios.post(API_URL + "/create_builds", builds);
+    }
+
+    const saveImage = (image) => {
+        console.log("Image : " + image);
+        return axios.post(API_URL + "/upload_image", image);
     }
 
 
@@ -44,10 +50,8 @@ const FormBuildsComponent = () => {
 
     const CreateBuilds = (e) => {
         e.preventDefault();
-        console.log(Builds);
         save(Builds)
             .then((res) => {
-                console.log("Builds add");
                 setMsg("Used Added Sucessfully");
                 setBuilds({
                     type : "",
@@ -72,6 +76,16 @@ const FormBuildsComponent = () => {
                 console.log(error);
             });
 
+    }
+
+    const uploadImage = e => {
+        e.preventDefault();
+        saveImage(Builds.image)
+        .then((res) => {
+            console.log("UPLOAD");
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     return(
@@ -184,6 +198,17 @@ const FormBuildsComponent = () => {
                 <input type = "file" name="image" onChange={handleImageChange} accept="image/*"/>
                 <br/>
                 <input type = "submit" value="Create"/>
+            </form>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <form onSubmit={(e) => uploadImage(e)}>
+            <label>Photo TEST</label>
+                <input type = "file" name="image" onChange={handleImageChange} accept="image/*"/>
+                <br/>
+                <input type = "submit" value="UPLOAD"/>
             </form>
         </div>
     )
