@@ -1,5 +1,6 @@
 package com.example.reltyhubapp.config;
 
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,8 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll()
-                .requestMatchers("/private/**").authenticated());
+                .requestMatchers("/private/**").authenticated()
+        );
         return http.build();
     }
 

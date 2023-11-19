@@ -7,6 +7,10 @@ const FormBuildsComponent = () => {
 
     const API_URL = "http://localhost:8090/public";
 
+    const handleImageChange = (e) => {
+        setBuilds({ ...Builds, image: e.target.files[0] });
+    };
+
     const [Builds, setBuilds] = useState({
         type : "",
         name_build : "",
@@ -24,69 +28,69 @@ const FormBuildsComponent = () => {
         geo : "",
         manager : "",
         contact : "",
-        image : null
+        image : []
     });
 
     const save = (builds) => {
-        console.log("Builds " + builds);
+        console.log("Builds "+ Builds.image);
         return axios.post(API_URL + "/create_builds", builds);
     }
-
-    const saveImage = (image) => {
-        console.log("Image : " + image);
-        return axios.post(API_URL + "/upload_image", image);
-    }
-
-
+    
 
     const handleChange = e => {
         const {name , value} = e.target;
         setBuilds({...Builds, [name]:value})
     }
 
-    const handleImageChange = (e) => {
-        setBuilds({ ...Builds, image: e.target.files[0] });
-    };
-
     const CreateBuilds = (e) => {
         e.preventDefault();
-        save(Builds)
-            .then((res) => {
-                setMsg("Used Added Sucessfully");
-                setBuilds({
-                    type : "",
-                    name_build : "",
-                    description : "",
-                    price : "",
-                    square_footage : "",
-                    count_bedrooms : "",
-                    count_bathrooms : "",
-                    city : "",
-                    view : "",
-                    distance_to_beach : "",
-                    floor : "",
-                    number_of_stores : "",
-                    type_of_dev : "",
-                    geo : "",
-                    manager : "",
-                    contact : "",
-                    image : null
-                })
-            }).catch((error) => {
-                console.log(error);
+      
+        const formData = new FormData();
+        formData.append("type", Builds.type);
+        formData.append("name_build", Builds.name_build);
+        formData.append("description", Builds.description);
+        formData.append("price", Builds.price);
+        formData.append("square_footage", Builds.square_footage);
+        formData.append("count_bedrooms", Builds.count_bedrooms);
+        formData.append("count_bathrooms", Builds.count_bathrooms);
+        formData.append("city", Builds.city);
+        formData.append("view", Builds.view);
+        formData.append("distance_to_beach", Builds.distance_to_beach);
+        formData.append("floor", Builds.floor);
+        formData.append("number_of_stores", Builds.number_of_stores);
+        formData.append("type_of_dev", Builds.type_of_dev);
+        formData.append("geo", Builds.geo);
+        formData.append("manager", Builds.manager);
+        formData.append("contact", Builds.contact);
+        formData.append("image", Builds.image);
+      
+        save(formData)
+          .then((res) => {
+            setMsg("Build Added Successfully");
+            setBuilds({
+              type: "",
+              name_build: "",
+              description: "",
+              price: "",
+              square_footage: "",
+              count_bedrooms: "",
+              count_bathrooms: "",
+              city: "",
+              view: "",
+              distance_to_beach: "",
+              floor: "",
+              number_of_stores: "",
+              type_of_dev: "",
+              geo: "",
+              manager: "",
+              contact: "",
+              image: null,
             });
-
-    }
-
-    const uploadImage = e => {
-        e.preventDefault();
-        saveImage(Builds.image)
-        .then((res) => {
-            console.log("UPLOAD");
-        }).catch((error) => {
-            console.log(error);
-        })
-    }
+          })
+          .catch((error) => {
+            console.error("Error:", msg);
+          });
+      };
 
     return(
         <div>
@@ -95,7 +99,7 @@ const FormBuildsComponent = () => {
                     Тип постройки
                     <br/>
                     <select name="type" value={Builds.type} onChange={handleChange}>
-                        <option value="">Выберите из списка</option>
+                        <option value="unknown">Выберите из списка</option>
                         <option value="Студии">Студии</option>
                         <option value="Квартиры">Квартиры</option>
                         <option value="Дома">Дома</option>
@@ -125,7 +129,7 @@ const FormBuildsComponent = () => {
                 <label>Город
                     <br/>
                     <select name="city" value={Builds.city} onChange={handleChange}>
-                    <option value="">Выберите из списка</option>
+                    <option value="unknown">Выберите из списка</option>
                     <option value="Бар">Бар</option>
                     <option value="Будва">Будва</option>
                     <option value="Херцег-Нови">Херцег-Нови</option>
@@ -179,9 +183,10 @@ const FormBuildsComponent = () => {
                 <label>Тип застройки
                     <br/>
                     <select name="type_of_dev" value={Builds.type_of_dev} onChange={handleChange}>
-                        <option value="">Выберите из списка</option>
+                        <option value="unknown">Выберите из списка</option>
                         <option value="Новостройка">Новостройка</option>
                         <option value="Вторичная">Вторичная</option>
+                        <option value="Коммерчиская">Коммерчиская</option>
                     </select>
                 </label>
                 <br/>
@@ -198,17 +203,6 @@ const FormBuildsComponent = () => {
                 <input type = "file" name="image" onChange={handleImageChange} accept="image/*"/>
                 <br/>
                 <input type = "submit" value="Create"/>
-            </form>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <form onSubmit={(e) => uploadImage(e)}>
-            <label>Photo TEST</label>
-                <input type = "file" name="image" onChange={handleImageChange} accept="image/*"/>
-                <br/>
-                <input type = "submit" value="UPLOAD"/>
             </form>
         </div>
     )

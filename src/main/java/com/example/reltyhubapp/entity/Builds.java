@@ -1,6 +1,7 @@
 package com.example.reltyhubapp.entity;
 
 import com.example.reltyhubapp.repository.ImageRepository;
+import jakarta.annotation.security.PermitAll;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Builds {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     private String type;
     private String name_build;
@@ -34,6 +37,7 @@ public class Builds {
     private String geo;
     private String manager;
     private String contact;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
     private Long previewImageId;
