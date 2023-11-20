@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import HomePage from './HomePage';
 
 const LoginComponent = () => {
     const [formData, setFormData] = useState({
