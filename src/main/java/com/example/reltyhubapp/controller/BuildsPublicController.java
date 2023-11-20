@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,7 +36,8 @@ public class BuildsPublicController {
     }
 
     @PostMapping(value = "/create_builds")
-    public ResponseEntity<?> createBuild(Builds builds, @RequestParam("image") MultipartFile file) throws IOException {
+    public ResponseEntity<?> createBuild(@ModelAttribute Builds builds, @RequestParam("image") ArrayList<MultipartFile> file) throws IOException {
+        System.out.println(file);
         buildsService.saveBuilds(builds, file);
         return new ResponseEntity<>("Builds save", HttpStatus.OK);
     }

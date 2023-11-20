@@ -6,11 +6,7 @@ const FormBuildsComponent = () => {
     const[msg, setMsg] = useState("");
 
     const API_URL = "http://localhost:8090/public";
-
-    const handleImageChange = (e) => {
-        setBuilds({ ...Builds, image: e.target.files[0] });
-    };
-
+    
     const [Builds, setBuilds] = useState({
         type : "",
         title : "",
@@ -31,16 +27,21 @@ const FormBuildsComponent = () => {
         image : []
     });
 
-    const save = (builds) => {
-        console.log("Builds "+ Builds.image);
-        return axios.post(API_URL + "/create_builds", builds);
-    }
-    
-
     const handleChange = e => {
         const {name , value} = e.target;
         setBuilds({...Builds, [name]:value})
     }
+
+    const handleImageChange = (e) => {
+        const image = e.target.files;
+        setBuilds({ ...Builds, image: [...Builds.image, ...image] });
+    };
+
+    const save = (builds) => {
+        console.log(Builds);
+        return axios.post(API_URL + "/create_builds", builds);
+    }
+    
 
     const CreateBuilds = (e) => {
         e.preventDefault();
@@ -62,7 +63,9 @@ const FormBuildsComponent = () => {
         formData.append("geo", Builds.geo);
         formData.append("manager", Builds.manager);
         formData.append("contact", Builds.contact);
-        formData.append("image", Builds.image);
+        Builds.image.forEach((image, index) => {
+            formData.append(`image`, image);
+        });
       
         save(formData)
           .then((res) => {
@@ -84,7 +87,7 @@ const FormBuildsComponent = () => {
               geo: "",
               manager: "",
               contact: "",
-              image: null,
+              image: [],
             });
           })
           .catch((error) => {
@@ -200,7 +203,7 @@ const FormBuildsComponent = () => {
                 <input type = "text" name="contact" value={Builds.contact} onChange={handleChange}/>
                 <br/>
                 <label>Photo</label>
-                <input type = "file" name="image" onChange={handleImageChange} accept="image/*"/>
+                <input type = "file" name="image" onChange={handleImageChange} accept="image/*" multiple/>
                 <br/>
                 <input type = "submit" value="Create"/>
             </form>

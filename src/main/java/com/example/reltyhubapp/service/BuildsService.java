@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,15 +23,22 @@ public class BuildsService {
         return buildsRepository.findAll();
     }
 
-    public void saveBuilds(Builds builds, MultipartFile file) throws IOException {
+    public void saveBuilds(Builds builds, ArrayList<MultipartFile> files) throws IOException {
+
         Image image;
-        if (file.getSize() != 0) {
-            image = toImageEntity(file);
-            image.setPreviewImage(true);
-            builds.addImageToBuilds(image);
+        for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            if (i == 0 && file.getSize() != 0) {
+                image = toImageEntity(file);
+                image.setPreviewImage(true);
+                builds.addImageToBuilds(image);
+            }
+            if (file.getSize() != 0 && i != 0) {
+                image = toImageEntity(file);
+                builds.addImageToBuilds(image);
+            }
         }
 
-        //log.info("Saving a new builds Builds. Title:{};", builds.getName_build());
         Builds buildsFromDb = buildsRepository.save(builds);
         buildsFromDb.setPreviewImageId(buildsFromDb.getImageList().get(0).getId());
         buildsRepository.save(builds);

@@ -34,7 +34,7 @@ const HomePage = () => {
           <div key={item.id}>
             <p>{item.id} {item.title} {item.floor} {item.manager}</p>
             <div>
-                <Image build={item.imageList[0]}/>
+                <Image build={item.imageList}/>
             </div>
           </div>
         ))}

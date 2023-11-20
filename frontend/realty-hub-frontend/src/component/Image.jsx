@@ -4,7 +4,9 @@ const Image = ({build}) => {
     if(build !== null && build !== undefined) {
         return (
             <div>
-                <img id="ItemPreview" src = {"data:image/png;base64," + build.bytes} alt="name"/>
+                {build.map(item => (
+                    <img id="ItemPreview" src = {"data:image/png;base64," + item.bytes} alt="name"/>
+                ))}
             </div>
         )
     }
