@@ -8,12 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/image")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
-@RequestMapping(value = "/public")
 public class ImageController {
     private final ImageRepository imageRepository;
-    @GetMapping("/image/{id}")
+    @GetMapping("/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElseThrow(null);
         return ResponseEntity.ok().header("fileName", image.getOriginalName())

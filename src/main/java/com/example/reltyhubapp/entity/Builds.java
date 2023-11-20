@@ -1,7 +1,6 @@
 package com.example.reltyhubapp.entity;
 
-import com.example.reltyhubapp.repository.ImageRepository;
-import jakarta.annotation.security.PermitAll;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class Builds {
     @Column(name = "id")
     private Long id;
     private String type;
-    private String name_build;
+    private String title;
     private String description;
     private Float price;
     private Float square_footage;

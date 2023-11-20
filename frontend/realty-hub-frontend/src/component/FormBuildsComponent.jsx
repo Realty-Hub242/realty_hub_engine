@@ -13,7 +13,7 @@ const FormBuildsComponent = () => {
 
     const [Builds, setBuilds] = useState({
         type : "",
-        name_build : "",
+        title : "",
         description : "",
         price : "",
         square_footage : "",
@@ -47,7 +47,7 @@ const FormBuildsComponent = () => {
       
         const formData = new FormData();
         formData.append("type", Builds.type);
-        formData.append("name_build", Builds.name_build);
+        formData.append("title", Builds.title);
         formData.append("description", Builds.description);
         formData.append("price", Builds.price);
         formData.append("square_footage", Builds.square_footage);
@@ -69,7 +69,7 @@ const FormBuildsComponent = () => {
             setMsg("Build Added Successfully");
             setBuilds({
               type: "",
-              name_build: "",
+              title: "",
               description: "",
               price: "",
               square_footage: "",
@@ -109,7 +109,7 @@ const FormBuildsComponent = () => {
                 </label>
                 <br/>
                 <label>Название</label>
-                <input type = "text" name="name_build" value={Builds.name} onChange={handleChange}/>
+                <input type = "text" name="title" value={Builds.name} onChange={handleChange}/>
                 <br/>
                 <label>Описание</label>
                 <input type = "text" name="description" value={Builds.description} onChange={handleChange}/>

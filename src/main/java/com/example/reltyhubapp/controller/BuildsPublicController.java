@@ -7,7 +7,7 @@ import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,8 @@ public class BuildsPublicController {
 
     @PermitAll
     @GetMapping("/home")
-    public List<Builds> home() {
+    public List<Builds> home(@RequestParam(name = "name", required = false) String name, Model model) {
+        model.addAttribute("products", buildsService.listProducts(name));
         return buildsRepository.findAll();
     }
 

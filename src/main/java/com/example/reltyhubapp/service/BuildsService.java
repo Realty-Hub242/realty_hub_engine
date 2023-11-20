@@ -17,6 +17,11 @@ import java.util.List;
 public class BuildsService {
     private final BuildsRepository buildsRepository;
 
+    public List<Builds> listProducts(String title) {
+        if (title != null) return buildsRepository.findByTitle(title);
+        return buildsRepository.findAll();
+    }
+
     public void saveBuilds(Builds builds, MultipartFile file) throws IOException {
         Image image;
         if (file.getSize() != 0) {
@@ -25,10 +30,11 @@ public class BuildsService {
             builds.addImageToBuilds(image);
         }
 
-        log.info("Saving a new builds Builds. Title:{};", builds.getName_build());
+        //log.info("Saving a new builds Builds. Title:{};", builds.getName_build());
         Builds buildsFromDb = buildsRepository.save(builds);
-        buildsRepository.save(builds);
         buildsFromDb.setPreviewImageId(buildsFromDb.getImageList().get(0).getId());
+        buildsRepository.save(builds);
+
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {
@@ -48,7 +54,4 @@ public class BuildsService {
         return buildsRepository.findById(id).orElse(null);
     }
 
-    public List<Builds> getAllBuild() {
-        return buildsRepository.getAllBuilds();
-    }
 }
