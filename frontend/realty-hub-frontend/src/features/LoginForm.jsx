@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const LoginComponent = () => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        usernameOrEmail: '',
+        username: '',
         password: '',
     });
-
-    let [loggedIn, setLoggedIn] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8090/private/api/auth/signin', formData, {
+            const response = await axios.post('http://localhost:8090/public/generate_token', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('Успешно вошли в систему.');
-            console.log('Ответ от сервера:', response.data);
-            setLoggedIn(true)
-            loggedIn = true;
             
-            if (loggedIn) {
-                return <Navigate path=""/>
-            }
+            Cookies.set('token', response.data);
+
+            console.log('Успешно вошли в систему. ' + response.data);
+            navigate('/partner_page');
 
         } catch (error) {
             console.error('Ошибка при входе в систему:', error);
@@ -36,16 +35,18 @@ const LoginComponent = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+
     return (
         <div>
+            <a href="/">back</a>
             <h2>Форма входа</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Имя пользователя или Email:
                     <input
                         type="text"
-                        name="usernameOrEmail"
-                        value={formData.usernameOrEmail}
+                        name="username"
+                        value={formData.username}
                         onChange={handleChange}
                     />
                 </label>

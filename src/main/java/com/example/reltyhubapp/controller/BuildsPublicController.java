@@ -54,18 +54,12 @@ public class BuildsPublicController {
         return buildsRepository.findAll();
     }
 
-    @PostMapping(value = "/create_builds")
-    public ResponseEntity<?> createBuild(@ModelAttribute Builds builds, @RequestParam("image") ArrayList<MultipartFile> file) throws IOException {
-        System.out.println(file);
-        buildsService.saveBuilds(builds, file);
-        return new ResponseEntity<>("Builds save", HttpStatus.OK);
+    @PermitAll
+    @GetMapping("/details_lot/{id}")
+    public ResponseEntity<Builds> getBuildsById(@PathVariable Long id) {
+        Builds builds = buildsRepository.findById(id).orElseThrow(() -> new RuntimeException("Build not found with id: " + id));
+        return new ResponseEntity<>(builds, HttpStatus.OK);
     }
-
-    @PostMapping("/add_new_user")
-    public String addNewUser(@RequestBody User user) {
-        return userInfoService.addUser(user);
-    }
-
 
     @PostMapping("/generate_token")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
