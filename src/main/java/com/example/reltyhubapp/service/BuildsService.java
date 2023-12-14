@@ -26,7 +26,7 @@ public class BuildsService {
     public void saveBuilds(Builds builds, ArrayList<MultipartFile> files) throws IOException {
 
         Image image;
-        for (int i = 0; i < files.size(); i++) {
+        for (int i = 0; i < files.size(); i++) { /// REFACTOR
             MultipartFile file = files.get(i);
             if (i == 0 && file.getSize() != 0) {
                 image = toImageEntity(file);
