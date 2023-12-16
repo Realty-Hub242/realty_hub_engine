@@ -14,6 +14,7 @@ public class Clients {
     private String lastName;
     private String email;
     private String numberPhone;
+    private String type;
     private Integer income;
     private String description;
     private String manager;

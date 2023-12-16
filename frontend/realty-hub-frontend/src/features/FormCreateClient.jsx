@@ -11,10 +11,13 @@ const FormCreateClient = () => {
         lastName : "",
         email : "",
         numberPhone : "",
+        type : "",
         income : "",
         description : "",
         manager : ""
     })
+
+    
 
     const handleChange = e => {
         const {name, value} = e.target;
@@ -39,6 +42,7 @@ const FormCreateClient = () => {
         formData.append("lastName", Client.lastName);
         formData.append("email", Client.email);
         formData.append("numberPhone", Client.numberPhone);
+        formData.append("type", Client.type);
         formData.append("income", Client.income);
         formData.append("description", Client.description);
         formData.append("manager", Client.manager);
@@ -50,6 +54,7 @@ const FormCreateClient = () => {
                 lastName : "",
                 email : "",
                 numberPhone : "",
+                type : "",
                 income : "",
                 description : "",
                 manager : ""
@@ -76,6 +81,16 @@ const FormCreateClient = () => {
                     <br />
                     <label>Номер телефона</label>
                     <input type="text" name="numberPhone" value={Client.numberPhone} onChange={handleChange}/>
+                    <br />
+                    <label>Тип сделки</label>
+                    <br />
+                    <select name="type" value={Client.type} onChange={handleChange}>
+                        <option value="unknown">Выберите из списка</option>
+                        <option value="Покупка">Покупка</option>
+                        <option value="Аренда">Аренда</option>
+                        <option value="Продажа">Продажа</option>
+                        <option value="Сдача">Сдача</option>
+                    </select>
                     <br />
                     <label>Бюджет</label>
                     <input type="text" name="income" value={Client.income} onChange={handleChange}/>
