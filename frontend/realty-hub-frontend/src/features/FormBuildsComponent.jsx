@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 const FormBuildsComponent = () => {
 
     const[msg, setMsg] = useState("");
 
-    const API_URL = "http://localhost:8090/public";
+    const API_URL = "http://localhost:8090/private";
     
     const [Builds, setBuilds] = useState({
         type : "",
@@ -38,8 +39,12 @@ const FormBuildsComponent = () => {
     };
 
     const save = (builds) => {
-        console.log(Builds);
-        return axios.post(API_URL + "/create_builds", builds);
+        const token = Cookies.get('token');
+        return axios.post(API_URL + "/create_builds", builds, {
+            headers : {
+                'Authorization': `Bearer ${token}` 
+            }
+        });
     }
     
 
@@ -97,6 +102,9 @@ const FormBuildsComponent = () => {
 
     return(
         <div>
+            <div>
+                <a href="/">home page</a>
+            </div>
             <form onSubmit={(e) => CreateBuilds(e)}>
                 <label>
                     Тип постройки
