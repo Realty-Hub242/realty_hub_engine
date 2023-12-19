@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
@@ -147,7 +147,7 @@ const FormBuildsComponent = () => {
     return(
         <div>
             <div>
-                <a href="/">home page</a>
+            <Link to = "/partner_page">Home Page</Link>
             </div>
             <form onSubmit={(e) => CreateBuilds(e)}>
                 <label>

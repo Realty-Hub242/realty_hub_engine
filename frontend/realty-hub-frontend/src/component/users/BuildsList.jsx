@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, Navigate } from "react-router-dom";
 import Image from '../Image';
+import Cookies from "js-cookie";
 
 
 const BuildsList = () => {
     const [data, setData] = useState(null);
     const [hasResponse, setDataResponse] = useState(false);
     const [editBuildId, setEditBuildId] = useState(null);
+    const API_URL = "http://localhost:8090/private";
+    
 
     useEffect(() => {
       const fetchData = async () => {
@@ -28,6 +31,20 @@ const BuildsList = () => {
 
     const handleIditClick = (buildId) => {
         setEditBuildId(buildId);
+    }
+
+    const handleDeleteByIdClick = (buildId) => {
+        try {
+            const token = Cookies.get('token');
+            axios.get(API_URL+"/delete_build/"+buildId,  {
+                headers : {
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+        }
     }
   
   
@@ -55,6 +72,8 @@ const BuildsList = () => {
               <br />
               <div className='change_button_build'>
                 <button onClick={() => handleIditClick(item.id)}>Изменить</button>
+                <br />
+                <button onClick={() => handleDeleteByIdClick(item.id)}>Удалить объект</button>
               </div>
             </div>
           ))}
