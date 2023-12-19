@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Link, Navigate } from "react-router-dom";
 import Image from '../Image';
 import Cookies from "js-cookie";
+import styles from '../../styles/BuildsList.module.css';
+import logo_realty_hub from '../../content/logo/Frame.png';
+
 
 
 const BuildsList = () => {
@@ -51,33 +54,31 @@ const BuildsList = () => {
     if (data !== null && data !== undefined) {
       return (
         <div>
-          <div className='header'>
-            <a href="/partner_page">back</a>
-          </div>
-          {data.map(item => (
-            <div key={item.id}>
-              <p>component</p>
-              <Link to={`/details/${item.id}`}>
-                {item.title}
-              </Link>
-              <br />
-              <br />
-              <div className='data-builds-block'>
-              <p>{item.title} {item.floor} {item.manager}</p>
-              </div>
-              <br />
-              <div>
-                  <Image build={item.imageList}/>
-              </div>
-              <br />
-              <div className='change_button_build'>
-                <button onClick={() => handleIditClick(item.id)}>Изменить</button>
-                <br />
-                <button onClick={() => handleDeleteByIdClick(item.id)}>Удалить объект</button>
-              </div>
+            <div className={styles.header}>
+                <div className={styles.logo_header}>
+                    <Link to="/"><img src={logo_realty_hub} alt="" /></Link>
+                </div>
             </div>
-          ))}
-          {editBuildId && <Navigate to = {`/create_build/${editBuildId}`}/>}
+            <div className={styles.data_builds_container}>
+            {data.map(item => (
+              <div key={item.id} className={styles.data_builds_block}>
+                <Link to={`/details/${item.id}`}>
+                  {item.title}
+                </Link>
+                <div>
+                    {item.imageList.map((image, index) => (
+                      <Image key={index} image={image}/>
+                    ))} 
+                </div>
+                <br />
+                <div className={styles.change_button_build}>
+                  <button onClick={() => handleIditClick(item.id)}>Изменить</button>
+                  <button onClick={() => handleDeleteByIdClick(item.id)}>Удалить объект</button>
+                </div>
+              </div>
+            ))}
+            {editBuildId && <Navigate to = {`/create_build/${editBuildId}`}/>}
+          </div>
         </div>
       );
     }

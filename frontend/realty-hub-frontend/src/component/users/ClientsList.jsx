@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from "js-cookie";
 import axios from 'axios';
+import styles from '../../styles/ClientList.module.css';
 
 const ClientsList = ({username}) => {
     const API_URL = "http://localhost:8090/private";
@@ -42,16 +43,15 @@ const ClientsList = ({username}) => {
 
     return(
         <div>
-            <div>
+            <div className={styles.clients_container}>
                 {data.map(client => (
-                    <div key={client.id}>
+                    <div key={client.id} className={styles.client_card}>
                         <p>Имя : {client.firstName}</p>                        
                         <p>Фамилия : {client.lastName}</p>                        
                         <p>Телефон : {client.numberPhone}</p>                    
-                        <p>Бюджет : {client.income}</p>                        
+                        <p>Бюджет : {client.income} EUR</p>                        
                         <p>Тип сделки : {client.type}</p>
                         <p>Работает с менеджером : {client.manager}</p>
-                        <br />
                     </div>
                 ))}
             </div>

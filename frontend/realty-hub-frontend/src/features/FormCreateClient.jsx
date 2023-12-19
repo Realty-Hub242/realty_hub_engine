@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
+import logo_realty_hub from '../content/logo/Frame.png';
+import styles from '../styles/CreateClient.module.css';
 
 const FormCreateClient = () => {
     const[msg, setMsg] = useState("");
@@ -64,44 +67,42 @@ const FormCreateClient = () => {
     };
 
     return(
-        <div className="add_clinet">
+        <div>
+            <div className={styles.header}>
+                <div className={styles.logo_header}>
+                  <Link to="/"><img src={logo_realty_hub} alt="" /></Link>
+                </div>
+            </div>
+            <div className={styles.add_client}>
             <div>
                 <a href="/partner_page">partner page</a>
-                <h3>Новый пользователь</h3>
+                <h3>Новый клиент</h3>
                 <form onSubmit={(e) => createClient(e)}>
-                    <label>Имя</label>
-                    <input type="text" name="firstName" value={Client.firstName} onChange={handleChange}/>
-                    <br />
-                    <label>Фамилия</label>
-                    <input type="text" name="lastName" value={Client.lastName} onChange={handleChange}/>
-                    <br />
-                    <label>Email</label>
-                    <input type="email" name="email" value={Client.email} onChange={handleChange}/>
-                    <br />
-                    <label>Номер телефона</label>
-                    <input type="text" name="numberPhone" value={Client.numberPhone} onChange={handleChange}/>
-                    <br />
-                    <label>Тип сделки</label>
-                    <br />
-                    <select name="type" value={Client.type} onChange={handleChange}>
-                        <option value="unknown">Выберите из списка</option>
-                        <option value="Покупка">Покупка</option>
-                        <option value="Аренда">Аренда</option>
-                        <option value="Продажа">Продажа</option>
-                        <option value="Сдача">Сдача</option>
-                    </select>
-                    <br />
-                    <label>Бюджет</label>
-                    <input type="text" name="income" value={Client.income} onChange={handleChange}/>
-                    <br />
-                    <label>Описание</label>
-                    <input type="text" name="description" value={Client.description} onChange={handleChange}/>
-                    <br />
-                    <label>Менеджер</label>
-                    <input type="text" name="manager" value={Client.manager} onChange={handleChange}/>
-                    <br />
-                    <input type = "submit" value="Create"/>
+                <label>Имя</label>
+                <input type="text" name="firstName" value={Client.firstName} onChange={handleChange} />
+                <label>Фамилия</label>
+                <input type="text" name="lastName" value={Client.lastName} onChange={handleChange} />
+                <label>Email</label>
+                <input type="email" name="email" value={Client.email} onChange={handleChange} />
+                <label>Номер телефона</label>
+                <input type="text" name="numberPhone" value={Client.numberPhone} onChange={handleChange} />
+                <label>Тип сделки</label>
+                <select name="type" value={Client.type} onChange={handleChange}>
+                    <option value="unknown">Выберите из списка</option>
+                    <option value="Покупка">Покупка</option>
+                    <option value="Аренда">Аренда</option>
+                    <option value="Продажа">Продажа</option>
+                    <option value="Сдача">Сдача</option>
+                </select>
+                <label>Бюджет</label>
+                <input type="text" name="income" value={Client.income} onChange={handleChange} />
+                <label>Описание</label>
+                <input type="text" name="description" value={Client.description} onChange={handleChange} />
+                <label>Менеджер</label>
+                <input type="text" name="manager" value={Client.manager} onChange={handleChange} />
+                <input type="submit" value="Create" />
                 </form>
+            </div>
             </div>
         </div>
     )

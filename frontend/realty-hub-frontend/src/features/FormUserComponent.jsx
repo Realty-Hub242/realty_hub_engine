@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from 'axios';
 import Cookies from "js-cookie";
+import styles from '../styles/CreateUser.module.css'
+import { Link } from "react-router-dom";
+import logo_realty_hub from '../content/logo/Frame.png';
 
 const FormUserComponent = () => {
 
@@ -53,32 +56,34 @@ const FormUserComponent = () => {
     };
 
     return(
-        <div className="add_user">
-            <div>
+        <div>
+        <div className={styles.header}>
+                <div className={styles.logo_header}>
+                  <Link to="/"><img src={logo_realty_hub} alt="" /></Link>
+                </div>
+        </div>
+        <div className={styles.add_user}>
+                <div>
                 <a href="/partner_page">partner page</a>
                 <h3>Новый пользователь</h3>
                 <form onSubmit={(e) => createUser(e)}>
                     <label>Имя сотрудника</label>
-                    <input type="text" name="name" value={User.name} onChange={handleChange}/>
-                    <br />
+                    <input type="text" name="name" value={User.name} onChange={handleChange} />
                     <label>user name </label>
-                    <input type="text" name="userName" value={User.userName} onChange={handleChange}/>
-                    <br />
+                    <input type="text" name="userName" value={User.userName} onChange={handleChange} />
                     <label>Email</label>
-                    <input type="email" name="email" value={User.email} onChange={handleChange}/>
-                    <br />
+                    <input type="email" name="email" value={User.email} onChange={handleChange} />
                     <label>Пароль</label>
-                    <input type="text" name="password" value={User.password} onChange={handleChange}/>
-                    <br />
+                    <input type="text" name="password" value={User.password} onChange={handleChange} />
                     <label>Роль пользователя</label>
                     <select name="roles" value={User.roles} onChange={handleChange}>
-                        <option value="USER">Выберите из списка</option>
-                        <option value="USER">USER</option>
+                    <option value="USER">Выберите из списка</option>
+                    <option value="USER">USER</option>
                     </select>
-                    <br />
-                    <input type = "submit" value="Create"/>
+                    <input type="submit" value="Create" />
                 </form>
-            </div>
+                </div>
+        </div>
         </div>
     )
 
