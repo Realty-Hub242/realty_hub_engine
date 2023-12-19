@@ -11,7 +11,6 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8090/public/home');
-        console.log(response);
         setData(response.data);
         setDataResponse(true);
       } catch (error) {

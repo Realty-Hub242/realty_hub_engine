@@ -40,7 +40,6 @@ const FormBuildsComponent = () => {
                     'Authorization': `Bearer ${token}` 
                 }
             }).then(response => {
-                console.log(response.data);
                 setBuilds({
                     type : response.data.type || "",
                     title : response.data.title || "",
