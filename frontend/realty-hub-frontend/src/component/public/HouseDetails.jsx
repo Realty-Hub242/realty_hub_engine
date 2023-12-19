@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Image from '../Image';
 
     const HouseDetails = () => {
 
@@ -13,7 +14,6 @@ import { useParams } from 'react-router-dom';
                 try {
                     const response = await axios.get(`http://localhost:8090/public/details_lot/${id}`)
                     setHouseData(response.data);
-                    console.log(response.data);
                 } catch (error) {
                     console.error(error);
                 }
@@ -25,8 +25,19 @@ import { useParams } from 'react-router-dom';
 
         if(houseData !== null && houseData !== null) {
             return(
-                <div>
+                <div className='house_detail'>
                     <h3>{houseData.title}</h3>
+                    <br />
+                    <p>{houseData.type}</p>
+                    <br />
+                    <p>{houseData.price}</p>
+                    <br />
+                    <p>{houseData.city}</p>
+                    <br />
+                    <p>{houseData.manager}</p>
+                    <div className='house_detail_image'>
+                       <Image build = {houseData.imageList}/>
+                    </div>
                     <a href="/">back</a>
                 </div>
             )

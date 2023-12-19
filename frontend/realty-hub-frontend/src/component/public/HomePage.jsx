@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import Image from './Image';
+import Image from '../Image';
 
 const HomePage = () => {
   const [data, setData] = useState(null);
@@ -11,8 +11,8 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8090/public/home');
+        console.log(response);
         setData(response.data);
-        console.log(response.data);
         setDataResponse(true);
       } catch (error) {
         console.error("Error getting data:", error);

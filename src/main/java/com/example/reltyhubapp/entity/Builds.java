@@ -1,6 +1,5 @@
 package com.example.reltyhubapp.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +35,8 @@ public class Builds {
     private String geo;
     private String manager;
     private String contact;
+    private boolean isPartner;
+    private boolean isSold;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();

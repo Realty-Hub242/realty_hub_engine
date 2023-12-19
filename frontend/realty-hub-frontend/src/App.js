@@ -1,11 +1,12 @@
 import LoginComponent from "./features/LoginForm";
-import HomePage from "./component/HomePage";
-import HouseDetails from './component/HouseDetails';
+import HomePage from "./component/public/HomePage";
+import HouseDetails from './component/public/HouseDetails';
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import FormBuildsComponent from "./features/FormBuildsComponent";
-import PartnerPage from "./component/PartnerPage";
+import PartnerPage from "./component/users/PartnerPage";
 import FormUserComponent from "./features/FormUserComponent";
 import FormCreateClient from "./features/FormCreateClient";
+import BuildsList from "./component/users/BuildsList";
 import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ element }) => {
@@ -30,6 +31,8 @@ const App = () => {
       <Route path="/create_build" element={<ProtectedRoute element={ <FormBuildsComponent/> } /> } />
       <Route path="/create_user" element={<ProtectedRoute element={<FormUserComponent/> } /> } />
       <Route path="/create_client" element={<ProtectedRoute element={<FormCreateClient/> } /> } />
+      <Route path="/all_builds" element={<ProtectedRoute element={<BuildsList/> } /> } />
+      <Route path="/create_build/:id?" element={<ProtectedRoute element={<FormBuildsComponent/> } /> } />
     </Routes>
     </BrowserRouter>
 )
