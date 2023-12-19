@@ -69,4 +69,22 @@ public class BuildsUserController {
     public List<Clients> getClients() {
         return clientRepository.findAll();
     }
+
+    @GetMapping("/get_build/{id}")
+    public ResponseEntity<Builds> getBuildsById(@PathVariable Long id) {
+        Builds build = buildsRepository.findById(id).orElseThrow(null);
+        return new ResponseEntity<>(build, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete_build/{id}")
+    public ResponseEntity<?> deleteBuildById(@PathVariable Long id) {
+        buildsRepository.deleteById(id);
+        return new ResponseEntity<>("The Build deleted OK", HttpStatus.OK);
+    }
+
+    @PutMapping("/edit_build/{id}")
+    public ResponseEntity<?> editBuild (@PathVariable Long id, @ModelAttribute Builds builds, @RequestParam("image") ArrayList<MultipartFile> file) throws IOException {
+        buildsService.editBuilds(id, builds, file);
+        return new ResponseEntity<>("Builds updated successfully", HttpStatus.OK);
+    }
 }

@@ -1,8 +1,12 @@
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
 const FormBuildsComponent = () => {
+
+    const { id } = useParams();
 
     const[msg, setMsg] = useState("");
 
@@ -28,6 +32,38 @@ const FormBuildsComponent = () => {
         image : []
     });
 
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if(id) {
+            axios.get(API_URL + '/get_build/'+ id, {
+                headers : {
+                    'Authorization': `Bearer ${token}` 
+                }
+            }).then(response => {
+                console.log(response.data);
+                setBuilds({
+                    type : response.data.type || "",
+                    title : response.data.title || "",
+                    description : response.data.description || "",
+                    price : response.data.price || "",
+                    square_footage : response.data.square_footage || "",
+                    count_of_bedrooms : response.data.count_of_bedrooms || "",
+                    count_of_bathrooms : response.data.count_of_bathrooms || "",
+                    city : response.data.city || "",
+                    view : response.data.view || "",
+                    distance_to_beach : response.data.distance_to_beach || "",
+                    floor : response.data.floor || "",
+                    number_of_stores : response.data.number_of_stores || "",
+                    type_of_dev : response.data.type_of_dev || "",
+                    geo : response.data.geo || "",
+                    manager : response.data.manager || "",
+                    contact : response.data.contact || "",
+                    image : response.data.image || []
+                });
+            });
+        }
+    }, [id])
+
     const handleChange = e => {
         const {name , value} = e.target;
         setBuilds({...Builds, [name]:value})
@@ -40,11 +76,19 @@ const FormBuildsComponent = () => {
 
     const save = (builds) => {
         const token = Cookies.get('token');
-        return axios.post(API_URL + "/create_builds", builds, {
-            headers : {
-                'Authorization': `Bearer ${token}` 
-            }
-        });
+        if(id) {
+            return axios.put(API_URL + "/edit_build/" + id, builds, {
+                headers : {
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
+        } else {
+            return axios.post(API_URL + "/create_builds", builds, {
+                headers : {
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
+        }
     }
     
 
@@ -57,8 +101,8 @@ const FormBuildsComponent = () => {
         formData.append("description", Builds.description);
         formData.append("price", Builds.price);
         formData.append("square_footage", Builds.square_footage);
-        formData.append("count_bedrooms", Builds.count_bedrooms);
-        formData.append("count_bathrooms", Builds.count_bathrooms);
+        formData.append("count_of_bedrooms", Builds.count_of_bedrooms);
+        formData.append("count_of_bathrooms", Builds.count_of_bathrooms);
         formData.append("city", Builds.city);
         formData.append("view", Builds.view);
         formData.append("distance_to_beach", Builds.distance_to_beach);
@@ -81,8 +125,8 @@ const FormBuildsComponent = () => {
               description: "",
               price: "",
               square_footage: "",
-              count_bedrooms: "",
-              count_bathrooms: "",
+              count_of_bedrooms: "",
+              count_of_bathrooms: "",
               city: "",
               view: "",
               distance_to_beach: "",
@@ -120,7 +164,7 @@ const FormBuildsComponent = () => {
                 </label>
                 <br/>
                 <label>Название</label>
-                <input type = "text" name="title" value={Builds.name} onChange={handleChange}/>
+                <input type = "text" name="title" value={Builds.title} onChange={handleChange}/>
                 <br/>
                 <label>Описание</label>
                 <input type = "text" name="description" value={Builds.description} onChange={handleChange}/>
@@ -132,10 +176,10 @@ const FormBuildsComponent = () => {
                 <input type = "number" name = "square_footage" value={Builds.square_footage} onChange={handleChange}/>
                 <br/>
                 <label>Спален кол-во</label>
-                <input type = "number" name="count_of_bedrooms" value={Builds.count_bedrooms} onChange={handleChange}/>
+                <input type = "number" name="count_of_bedrooms" value={Builds.count_of_bedrooms} onChange={handleChange}/>
                 <br/>
                 <label>Санузлов кол-во</label>
-                <input type = "number" name="count_of_bathrooms" value={Builds.count_bathrooms} onChange={handleChange}/>
+                <input type = "number" name="count_of_bathrooms" value={Builds.count_of_bathrooms} onChange={handleChange}/>
                 <br/>
                 <label>Город
                     <br/>
@@ -213,7 +257,7 @@ const FormBuildsComponent = () => {
                 <label>Photo</label>
                 <input type = "file" name="image" onChange={handleImageChange} accept="image/*" multiple/>
                 <br/>
-                <input type = "submit" value="Create"/>
+                <input type = "submit" value="Save"/>
             </form>
         </div>
     )
