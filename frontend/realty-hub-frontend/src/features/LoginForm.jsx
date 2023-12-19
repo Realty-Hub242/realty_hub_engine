@@ -22,9 +22,7 @@ const LoginComponent = () => {
             });
             
             Cookies.set('token', response.data);
-
-            console.log('Успешно вошли в систему. ' + response.data);
-            navigate('/partner_page');
+            navigate('/partner_page', {state : {username : formData.username}});
 
         } catch (error) {
             console.error('Ошибка при входе в систему:', error);

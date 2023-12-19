@@ -87,4 +87,10 @@ public class BuildsUserController {
         buildsService.editBuilds(id, builds, file);
         return new ResponseEntity<>("Builds updated successfully", HttpStatus.OK);
     }
+
+    @GetMapping("/get_user/{username}")
+    public ResponseEntity<?> getUserData(@PathVariable String username) {
+        User user = userRepository.findByUserName(username).orElse(null);
+        return new ResponseEntity<>(user.getName(), HttpStatus.OK);
+    }
 }

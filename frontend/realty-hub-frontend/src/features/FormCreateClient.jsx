@@ -27,8 +27,6 @@ const FormCreateClient = () => {
 
     const save = (client) => {
         const token = Cookies.get('token');
-        console.log(Client);
-        console.log("token " + token);
         return axios.post(API_URL+"/add_new_client", client, {
             headers : {
                 'Authorization': `Bearer ${token}` 

@@ -22,8 +22,6 @@ const FormUserComponent = () => {
 
     const save = (user) => {
         const token = Cookies.get('token');
-        console.log(User);
-        console.log("token " + token);
         return axios.post(API_URL+"/add_new_user", user, {
             headers : {
                 'Authorization': `Bearer ${token}` 
