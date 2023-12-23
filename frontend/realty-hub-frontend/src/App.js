@@ -7,6 +7,7 @@ import PartnerPage from "./component/users/PartnerPage";
 import FormUserComponent from "./features/FormUserComponent";
 import FormCreateClient from "./features/FormCreateClient";
 import BuildsList from "./component/users/BuildsList";
+// import UserProvider from "./component/context-state/UserProvider";
 import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ element }) => {
@@ -23,17 +24,19 @@ const ProtectedRoute = ({ element }) => {
 const App = () => {
   return(
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginComponent />} />
-      <Route path="/details/:id" element={<HouseDetails />} />
-      <Route path="/partner_page" element={<ProtectedRoute element={ <PartnerPage/> } /> } />
-      <Route path="/create_build" element={<ProtectedRoute element={ <FormBuildsComponent/> } /> } />
-      <Route path="/create_user" element={<ProtectedRoute element={<FormUserComponent/> } /> } />
-      <Route path="/create_client" element={<ProtectedRoute element={<FormCreateClient/> } /> } />
-      <Route path="/all_builds" element={<ProtectedRoute element={<BuildsList/> } /> } />
-      <Route path="/create_build/:id?" element={<ProtectedRoute element={<FormBuildsComponent/> } /> } />
-    </Routes>
+      {/* <UserProvider> */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/details/:id" element={<HouseDetails />} />
+          <Route path="/partner_page" element={<ProtectedRoute element={ <PartnerPage/> } /> } />
+          <Route path="/create_build" element={<ProtectedRoute element={ <FormBuildsComponent/> } /> } />
+          <Route path="/create_user" element={<ProtectedRoute element={<FormUserComponent/> } /> } />
+          <Route path="/create_client" element={<ProtectedRoute element={<FormCreateClient/> } /> } />
+          <Route path="/all_builds" element={<ProtectedRoute element={<BuildsList/> } /> } />
+          <Route path="/create_build/:id?" element={<ProtectedRoute element={<FormBuildsComponent/> } /> } />
+        </Routes>
+      {/* </UserProvider> */}
     </BrowserRouter>
 )
 }
