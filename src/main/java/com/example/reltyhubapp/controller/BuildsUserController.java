@@ -3,6 +3,7 @@ package com.example.reltyhubapp.controller;
 import com.example.reltyhubapp.entity.Builds;
 import com.example.reltyhubapp.entity.Clients;
 import com.example.reltyhubapp.entity.User;
+import com.example.reltyhubapp.entyty_response.ClientResponse;
 import com.example.reltyhubapp.repository.BuildsRepository;
 import com.example.reltyhubapp.repository.ClientRepository;
 import com.example.reltyhubapp.repository.UserRepository;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +58,9 @@ public class BuildsUserController {
 
     @PostMapping("/add_new_client")
     public ResponseEntity<?> addNewClient(@ModelAttribute Clients client) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        client.setUser(userRepository.findByUserName(username).orElse(null));
         clientService.createClient(client);
         return new ResponseEntity<>("Client save", HttpStatus.OK);
     }
@@ -65,9 +71,35 @@ public class BuildsUserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/get_all_users")
+    public ResponseEntity<?> getListUsers() throws IOException {
+        List<User> userList = userRepository.findAll();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
+    }
+
     @GetMapping("/clients")
-    public List<Clients> getClients() {
-        return clientRepository.findAll();
+    public List<ClientResponse> getClients() {
+        List<Clients> clients = clientRepository.findAll();
+        List<ClientResponse> clientResponseList = new ArrayList<>();
+
+        for(Clients client : clients) {
+            ClientResponse clientResponse = new ClientResponse();
+            clientResponse.setId(client.getID());
+            clientResponse.setFirstName(client.getFirstName());
+            clientResponse.setLastName(client.getLastName());
+            clientResponse.setNumberPhone(client.getNumberPhone());
+            clientResponse.setIncome(client.getIncome());
+            clientResponse.setType(client.getType());
+            clientResponse.setDescription(client.getDescription());
+            clientResponse.setEmail(client.getEmail());
+
+            if (client.getUser() != null) {
+                clientResponse.setManagerName(client.getUser().getName());
+            }
+
+            clientResponseList.add(clientResponse);
+        }
+        return clientResponseList;
     }
 
     @GetMapping("/get_build/{id}")
@@ -91,6 +123,6 @@ public class BuildsUserController {
     @GetMapping("/get_user/{username}")
     public ResponseEntity<?> getUserData(@PathVariable String username) {
         User user = userRepository.findByUserName(username).orElse(null);
-        return new ResponseEntity<>(user.getName(), HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
