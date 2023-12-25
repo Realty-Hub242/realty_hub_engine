@@ -2,29 +2,21 @@ package com.example.reltyhubapp.controller;
 
 import com.example.reltyhubapp.entity.AuthRequest;
 import com.example.reltyhubapp.entity.Builds;
-import com.example.reltyhubapp.entity.User;
 import com.example.reltyhubapp.repository.BuildsRepository;
 import com.example.reltyhubapp.service.BuildsService;
 import com.example.reltyhubapp.service.JwtService;
 import com.example.reltyhubapp.service.UserInfoService;
 import jakarta.annotation.security.PermitAll;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 

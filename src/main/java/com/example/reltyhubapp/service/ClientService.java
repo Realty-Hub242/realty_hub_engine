@@ -2,6 +2,7 @@ package com.example.reltyhubapp.service;
 
 import com.example.reltyhubapp.entity.Clients;
 import com.example.reltyhubapp.repository.ClientRepository;
+import com.example.reltyhubapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
