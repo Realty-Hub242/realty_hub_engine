@@ -32,9 +32,17 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Clients> clientsList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Builds> buildsList = new ArrayList<>();
+
     public void addClientToUser(Clients clients) {
         clients.setUser(this);
         clientsList.add(clients);
+    }
+
+    public void addBuildsToUser(Builds builds) {
+        builds.setUser(this);
+        buildsList.add(builds);
     }
 
 
