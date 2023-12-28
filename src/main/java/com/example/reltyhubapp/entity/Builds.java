@@ -1,5 +1,6 @@
 package com.example.reltyhubapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,6 +41,10 @@ public class Builds {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private User user;
     private Long previewImageId;
     private LocalDateTime dateOfCreate;
     @PrePersist

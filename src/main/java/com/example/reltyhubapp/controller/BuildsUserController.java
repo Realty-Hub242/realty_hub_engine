@@ -47,6 +47,11 @@ public class BuildsUserController {
 
     @PostMapping("/create_builds")
     public ResponseEntity<?> createBuild(@ModelAttribute Builds builds, @RequestParam("image") ArrayList<MultipartFile> file) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUserName(username).orElse(null);
+        builds.setUser(user);
+        builds.setManager(user.getName());
         buildsService.saveBuilds(builds, file);
         return new ResponseEntity<>("Builds save", HttpStatus.OK);
     }
