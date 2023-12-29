@@ -66,6 +66,7 @@ public class BuildsUserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         client.setUser(userRepository.findByUserName(username).orElse(null));
+        client.setManagerName(userRepository.findByUserName(username).orElse(null).getName());
         clientService.createClient(client);
         return new ResponseEntity<>("Client save", HttpStatus.OK);
     }
@@ -129,5 +130,23 @@ public class BuildsUserController {
     public ResponseEntity<?> getUserData(@PathVariable String username) {
         User user = userRepository.findByUserName(username).orElse(null);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/get_builds_by_manager")
+    public ResponseEntity<?> getBuildsByManager() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUserName(username).orElse(null);
+        List<Builds> buildsList = buildsRepository.findBuildsByUserId(user.getID());
+        return new ResponseEntity<>(buildsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/get_clients_by_manager")
+    public ResponseEntity<?> getClientsByManager() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUserName(username).orElse(null);
+        List<Clients> clientsList = clientRepository.findClientsByUserId(user.getID());
+        return new ResponseEntity<>(clientsList, HttpStatus.OK);
     }
 }

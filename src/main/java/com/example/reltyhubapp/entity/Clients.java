@@ -21,6 +21,7 @@ public class Clients {
     private String type;
     private Integer income;
     private String description;
+    private String managerName;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnore
