@@ -20,7 +20,7 @@ public class Builds {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private String type;
+    private String houseType;
     private String title;
     private String description;
     private Float price;
