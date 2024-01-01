@@ -38,6 +38,7 @@ public class Builds {
     private String contact;
     private boolean isPartner;
     private boolean isSold;
+    private String typeDeal;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
