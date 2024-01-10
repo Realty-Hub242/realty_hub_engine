@@ -52,6 +52,7 @@ public class BuildsUserController {
         User user = userRepository.findByUserName(username).orElse(null);
         builds.setUser(user);
         builds.setManager(user.getName());
+        builds.setContact(user.getNumberPhone());
         buildsService.saveBuilds(builds, file);
         return new ResponseEntity<>("Builds save", HttpStatus.OK);
     }
