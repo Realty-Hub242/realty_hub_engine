@@ -40,7 +40,7 @@ public class Builds {
     private boolean isSold;
     private String typeDeal;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "builds")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
 
     @JsonIgnore

@@ -63,21 +63,23 @@ public class BuildsService {
     }
 
     public void editBuilds(Long id, Builds newBuilds, ArrayList<MultipartFile> files) throws IOException {
-        Builds existingBuilds = buildsRepository.findById(id).orElse(null);
+        Builds existingBuilds = buildsRepository.findById(id).orElse(null); /// NULL?
 
         if (existingBuilds != null) {
-            existingBuilds.getImageList().clear();
-            Image image;
-            for (int i = 0; i < files.size(); i++) { /// REFACTOR
-                MultipartFile file = files.get(i);
-                if (i == 0 && file.getSize() != 0) {
-                    image = toImageEntity(file);
-                    image.setPreviewImage(true);
-                    existingBuilds.addImageToBuilds(image);
-                }
-                if (file.getSize() != 0 && i != 0) {
-                    image = toImageEntity(file);
-                    existingBuilds.addImageToBuilds(image);
+            if (files != null) {
+                existingBuilds.getImageList().clear();
+                Image image;
+                for (int i = 0; i < files.size(); i++) { /// REFACTOR
+                    MultipartFile file = files.get(i);
+                    if (i == 0 && file.getSize() != 0) {
+                        image = toImageEntity(file);
+                        image.setPreviewImage(true);
+                        existingBuilds.addImageToBuilds(image);
+                    }
+                    if (file.getSize() != 0 && i != 0) {
+                        image = toImageEntity(file);
+                        existingBuilds.addImageToBuilds(image);
+                    }
                 }
             }
             existingBuilds.setTitle(newBuilds.getTitle());
