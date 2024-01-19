@@ -25,7 +25,7 @@ public class Image {
     @Column(name = "bytes", columnDefinition = "longblob")
     @Lob
     private byte[] bytes;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonIgnore
     private Builds builds;
 
