@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://realty-hub-backend-b2a57ab30fb8.herokuapp.com")
 @RequestMapping(value = "/private")
 @RequiredArgsConstructor
 public class BuildsUserController {
