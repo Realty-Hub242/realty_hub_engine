@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "https://realty-hub-frontend-e291150c5a78.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/public")
 public class BuildsPublicController {
 

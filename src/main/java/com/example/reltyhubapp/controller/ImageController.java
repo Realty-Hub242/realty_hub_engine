@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://realty-hub-backend-b2a57ab30fb8.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/image")
 @RequiredArgsConstructor
 public class ImageController {

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://realty-hub-backend-b2a57ab30fb8.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/private")
 @RequiredArgsConstructor
 public class BuildsUserController {
@@ -70,18 +70,6 @@ public class BuildsUserController {
         client.setManagerName(userRepository.findByUserName(username).orElse(null).getName());
         clientService.createClient(client);
         return new ResponseEntity<>("Client save", HttpStatus.OK);
-    }
-
-    @GetMapping("/get_user")
-    public ResponseEntity<User> getUser(@ModelAttribute User user) throws IOException {
-        User users = userRepository.findByUserName(user.getUserName()).orElseThrow(()-> new RuntimeException(""));
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/get_all_users")
-    public ResponseEntity<?> getListUsers() throws IOException {
-        List<User> userList = userRepository.findAll();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     @GetMapping("/clients")
