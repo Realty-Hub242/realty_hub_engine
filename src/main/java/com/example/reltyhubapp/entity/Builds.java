@@ -39,6 +39,7 @@ public class Builds {
     private boolean isPartner;
     private boolean isSold;
     private String typeDeal;
+    private boolean hasLift;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true, mappedBy = "builds")
     private List<Image> imageList = new ArrayList<>();
