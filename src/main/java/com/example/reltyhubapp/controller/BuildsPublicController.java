@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://realtyhubreact-production.up.railway.app")
 @RequestMapping(value = "/public")
 public class BuildsPublicController {
 

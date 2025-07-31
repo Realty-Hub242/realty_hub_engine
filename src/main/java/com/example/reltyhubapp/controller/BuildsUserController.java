@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://realtyhubreact-production.up.rp")
 @RequestMapping(value = "/private")
 @RequiredArgsConstructor
 public class BuildsUserController {
