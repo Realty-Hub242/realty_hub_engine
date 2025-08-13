@@ -62,7 +62,4 @@ public class BuildsPublicController {
             throw new UsernameNotFoundException("invalid user request !");
         }
     }
-
-    
-
 }
