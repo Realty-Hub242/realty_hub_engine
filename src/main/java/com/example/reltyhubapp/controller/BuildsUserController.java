@@ -113,12 +113,12 @@ public class BuildsUserController {
     public ResponseEntity<?> deleteBuildById(@PathVariable Long id) {
         try {
             // 1. Удаляем все связанные изображения
-            imageRepository.deleteByBuildId(id); // Используйте правильное имя метода
+            imageRepository.deleteByBuildsId(id); // или deleteByBuilds_Id(id)
 
             // 2. Затем удаляем саму сборку
             buildsRepository.deleteById(id);
 
-            return ResponseEntity.ok("Объект успешно удалён");
+            return ResponseEntity.ok("Объект и связанные изображения успешно удалены");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Ошибка при удалении: " + e.getMessage());
