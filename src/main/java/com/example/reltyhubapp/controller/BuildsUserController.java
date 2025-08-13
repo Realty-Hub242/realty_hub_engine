@@ -6,6 +6,7 @@ import com.example.reltyhubapp.entity.User;
 import com.example.reltyhubapp.entyty_response.ClientResponse;
 import com.example.reltyhubapp.repository.BuildsRepository;
 import com.example.reltyhubapp.repository.ClientRepository;
+import com.example.reltyhubapp.repository.ImageRepository;
 import com.example.reltyhubapp.repository.UserRepository;
 import com.example.reltyhubapp.service.BuildsService;
 import com.example.reltyhubapp.service.ClientService;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
@@ -44,6 +46,9 @@ public class BuildsUserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private final ImageRepository imageRepository;
+
 
     @PostMapping("/create_builds")
     public ResponseEntity<?> createBuild(@ModelAttribute Builds builds, @RequestParam("image") ArrayList<MultipartFile> file) throws IOException {
@@ -103,10 +108,21 @@ public class BuildsUserController {
         return new ResponseEntity<>(build, HttpStatus.OK);
     }
 
-    @GetMapping("/delete_build/{id}")
+    @DeleteMapping("/delete_build/{id}")
+    @Transactional
     public ResponseEntity<?> deleteBuildById(@PathVariable Long id) {
-        buildsRepository.deleteById(id);
-        return new ResponseEntity<>("The Build deleted OK", HttpStatus.OK);
+        try {
+            // 1. Удаляем все связанные изображения
+            imageRepository.deleteByBuildId(id); // Используйте правильное имя метода
+
+            // 2. Затем удаляем саму сборку
+            buildsRepository.deleteById(id);
+
+            return ResponseEntity.ok("Объект успешно удалён");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Ошибка при удалении: " + e.getMessage());
+        }
     }
 
     @PutMapping("/edit_build/{id}")
