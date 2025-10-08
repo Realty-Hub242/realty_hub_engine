@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,10 @@ public class BuildsPublicController {
     @PermitAll
     @GetMapping("/home")
     public List<Builds> home(@RequestParam(name = "name", required = false) String name, Model model) {
+        String newPassword = "koko1212"; // новый пароль
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(newPassword);
+        System.out.println("Hash: " + hash);
         model.addAttribute("products", buildsService.listProducts(name));
         return buildsRepository.findAll();
     }
