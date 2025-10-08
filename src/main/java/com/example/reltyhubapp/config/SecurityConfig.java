@@ -76,7 +76,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource customConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","https://realtyhubreact-production.up.railway.app"));
+        configuration.setAllowedOrigins(Arrays.asList(
+              "http://localhost:3000/",
+              "https://realtyhubreact-production.up.railway.app",
+              "https://www.realty-hub.me",
+              "https://realty-hub.me"
+              ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
 
