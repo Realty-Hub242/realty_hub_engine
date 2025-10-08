@@ -45,7 +45,7 @@ public class SecurityConfig {
             .cors(c -> c.configurationSource(customConfigurationSource()))
 
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/public/**").permitAll()
+                    .requestMatchers("/**").permitAll()
                     .requestMatchers("/private/**").authenticated()
         );
 
