@@ -44,7 +44,7 @@ public class BuildsPublicController {
     @PermitAll
     @GetMapping("/home")
     public List<Builds> home(@RequestParam(name = "name", required = false) String name, Model model) {
-        String newPassword = "koko1212"; // новый пароль
+        String newPassword = "CDDMkPQkIkVu5d"; // новый пароль
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hash = encoder.encode(newPassword);
         System.out.println("Hash: " + hash);
