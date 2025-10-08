@@ -24,16 +24,12 @@ public class User {
 
     private String name;
 
-    @JsonIgnore
     private String userName;
 
-    @JsonIgnore
     private String email;
 
-    @JsonIgnore
     private String password;
 
-    @JsonIgnore
     private String roles;
 
     private String numberPhone;

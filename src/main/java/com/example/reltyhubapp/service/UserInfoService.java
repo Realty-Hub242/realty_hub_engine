@@ -28,6 +28,9 @@ public class UserInfoService implements UserDetailsService {
     }
 
     public String addUser(User user) {
+        if (user.getUserName() == null || user.getPassword() == null || user.getEmail() == null) {
+            throw new RuntimeException("userName, email, and password are required");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "User Add";
