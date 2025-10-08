@@ -77,8 +77,7 @@ public class SecurityConfig {
     public CorsConfigurationSource customConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-              "http://localhost:3000",
-              "https://realtyhubreact-production.up.railway.app",
+              "realtyhubreact-production-e478.up.railway.app",
               "https://www.realty-hub.me",
               "https://realty-hub.me"
               ));
