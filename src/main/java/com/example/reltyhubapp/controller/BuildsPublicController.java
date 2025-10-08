@@ -2,6 +2,7 @@ package com.example.reltyhubapp.controller;
 
 import com.example.reltyhubapp.entity.AuthRequest;
 import com.example.reltyhubapp.entity.Builds;
+import com.example.reltyhubapp.entity.User;
 import com.example.reltyhubapp.repository.BuildsRepository;
 import com.example.reltyhubapp.service.BuildsService;
 import com.example.reltyhubapp.service.JwtService;
@@ -61,5 +62,9 @@ public class BuildsPublicController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+    @PostMapping("/add_new_user")
+    public String addNewUser(@ModelAttribute User user) {
+        return userInfoService.addUser(user);
     }
 }
