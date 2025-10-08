@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://www.realty-hub.me)
+@CrossOrigin(origins = "https://www.realty-hub.me")
 @RequestMapping(value = "/private")
 @RequiredArgsConstructor
 public class BuildsUserController {
